@@ -19,6 +19,17 @@ public class Janela {
         return janelaLazy;
     }
 
+    //Outra forma de fazer a mesma coisa de JanelaEnum
+    enum JanelaEnum{
+
+        JanelaEnum(){};
+
+        public static Janela INSTANCE(){
+            return janelaLazy;
+        }
+
+    }
+
     public static Janela getInstanceLazyCorreto(){
         if(janelaLazy == null){
             synchronized (Janela.class){
