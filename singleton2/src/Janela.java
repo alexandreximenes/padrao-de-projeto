@@ -1,24 +1,30 @@
 public class Janela {
 
-
     private Janela(){}
 
-    private static Janela janela = null;
-    private static int nInstance = 0;
+    //Eager initialization
+    private static Janela getInstanceEager = new Janela();
 
-    public static Janela getInstance(){
-        if(janela == null){
-            nInstance += 1;
-            janela = new Janela();
+    public static Janela getInstanceEager(){
+        return getInstanceEager;
+    }
+
+    //Lazy initialization
+    private static Janela janelaLazy = null;
+
+    public static Janela getInstanceLazy(){
+        if(janelaLazy == null){
+            janelaLazy = new Janela();
         }
-        return janela;
+        return janelaLazy;
     }
 
-    public static int getnInstance() {
-        return nInstance;
-    }
-
-    public static void setnInstance(int nInstance) {
-        Janela.nInstance = nInstance;
+    public static Janela getInstanceLazyCorreto(){
+        if(janelaLazy == null){
+            synchronized (Janela.class){
+                janelaLazy = new Janela();
+            }
+        }
+        return janelaLazy;
     }
 }
